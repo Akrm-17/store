@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarShow X - Luxury Car Exhibition</title>
+    <title>Car Categories - CarShow X</title>
     <style>
         /* Global Styles */
         * {
@@ -70,96 +70,141 @@
             color: #f1c40f;
         }
         
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
-            overflow: hidden;
+        /* Categories Section */
+        .categories-section {
+            padding: 150px 10% 100px;
         }
         
-        .hero::before {
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            color: #f1c40f;
+        }
+        
+        .section-title::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
-            z-index: -1;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #f1c40f;
         }
         
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .category-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(241, 196, 15, 0.2);
+        }
+        
+        .category-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .category-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -2;
-            animation: zoomEffect 20s infinite alternate;
+            transition: transform 0.5s;
         }
         
-        @keyframes zoomEffect {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.1);
-            }
+        .category-card:hover .category-image img {
+            transform: scale(1.1);
         }
         
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1.5s forwards 0.5s;
+        .category-info {
+            padding: 20px;
+            position: relative;
         }
         
-        .hero p {
+        .category-info h3 {
             font-size: 1.5rem;
-            max-width: 800px;
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: fadeIn 1.5s forwards 1s;
+            margin-bottom: 10px;
+            color: #f1c40f;
         }
         
-        .cta-button {
-            padding: 15px 40px;
+        .category-info p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 20px;
+        }
+        
+        .category-btn {
+            display: inline-block;
+            padding: 10px 20px;
             background-color: #f1c40f;
             color: #121212;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
             font-weight: 600;
-            cursor: pointer;
             transition: all 0.3s;
-            opacity: 0;
-            animation: fadeIn 1.5s forwards 1.5s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
         
-        .cta-button:hover {
+        .category-btn:hover {
             background-color: #ffffff;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);
+            transform: translateY(-3px);
         }
         
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Audio Description Effect */
+        .audio-description {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .audio-description i {
+            color: #ffffff;
+            font-size: 0.8rem;
+        }
+        
+        /* Text Reflection Effect */
+        .reflected-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .reflected-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transform: scaleY(-1);
+            opacity: 0.7;
         }
         
         /* Footer */
@@ -191,18 +236,34 @@
             color: #777777;
         }
         
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.6s;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .section-title {
+                font-size: 2rem;
             }
             
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
-            .nav-links {
-                display: none;
+            .categories-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -226,13 +287,52 @@
               </ul>
         </nav>
         
-        <section class="hero">
-            <video autoplay muted loop class="hero-bg">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-sports-car-driving-fast-on-a-race-track-42845-large.mp4" type="video/mp4">
-            </video>
-            <h1>Welcome to CarShow <span style="color: #f1c40f;">X</span></h1>
-            <p>Where power meets elegance in the world of premium automobiles</p>
-            <button class="cta-button" onclick="window.location.href='categories.html'">Start Tour</button>
+        <section class="categories-section">
+            <h1 class="section-title fade-in">Our <span class="reflected-text" data-text="Categories">Categories</span></h1>
+            
+            <div class="categories-grid">
+                <div class="category-card fade-in">
+                    <div class="category-image">
+                        <img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sports Cars">
+                        <div class="audio-description" onclick="playDescription('sports')">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Sports Cars</h3>
+                        <p>Experience the thrill of high-performance vehicles designed for speed and agility. Our sports car collection features the latest models from top manufacturers.</p>
+                        <a href="#" class="category-btn">Browse Models</a>
+                    </div>
+                </div>
+                
+                <div class="category-card fade-in delay-1">
+                    <div class="category-image">
+                        <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Family Cars">
+                        <div class="audio-description" onclick="playDescription('family')">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Family Cars</h3>
+                        <p>Discover spacious and comfortable vehicles perfect for family adventures. Safety, comfort, and practicality combined in our family car selection.</p>
+                        <a href="#" class="category-btn">Browse Models</a>
+                    </div>
+                </div>
+                
+                <div class="category-card fade-in delay-2">
+                    <div class="category-image">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Economic Cars">
+                        <div class="audio-description" onclick="playDescription('economic')">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Economic Cars</h3>
+                        <p>Fuel-efficient and budget-friendly options that don't compromise on style or performance. Perfect for city driving and daily commutes.</p>
+                        <a href="#" class="category-btn">Browse Models</a>
+                    </div>
+                </div>
+            </div>
         </section>
         
         <footer>
@@ -243,22 +343,36 @@
                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
-            <p class="copyright">© 2025 CarShow X. All Rights Reserved.</p>
+            <p class="copyright">© 2023 CarShow X. All Rights Reserved.</p>
         </footer>
     </div>
     
     <script>
-        // Background music (optional)
         document.addEventListener('DOMContentLoaded', function() {
-            // Uncomment to enable background music
-            // const bgMusic = new Audio('background-music.mp3');
-            // bgMusic.loop = true;
-            // bgMusic.volume = 0.3;
+            // Animation trigger on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
             
-            // Play music when user interacts with page
-            // document.body.addEventListener('click', function() {
-            //     bgMusic.play();
-            // }, { once: true });
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.style.animationPlayState = 'running';
+                    }
+                });
+            };
+            
+            // Set initial state
+            fadeElements.forEach(element => {
+                element.style.animationPlayState = 'paused';
+            });
+            
+            // Check on load
+            fadeInOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
             
             // Navbar scroll effect
             window.addEventListener('scroll', function() {
@@ -269,15 +383,56 @@
                     nav.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
                 }
             });
+        });
+        
+        // Audio description function
+        function playDescription(type) {
+            let audioText;
             
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
+            switch(type) {
+                case 'sports':
+                    audioText = "Our sports car collection features high-performance vehicles with powerful engines and sleek designs. Perfect for those who love speed and style.";
+                    break;
+                case 'family':
+                    audioText = "Family cars in our showroom offer spacious interiors, advanced safety features, and comfortable rides for all your family adventures.";
+                    break;
+                case 'economic':
+                    audioText = "Economic cars provide excellent fuel efficiency and low maintenance costs, ideal for city driving and daily commutes.";
+                    break;
+                default:
+                    audioText = "This category features premium vehicles from our collection.";
+            }
+            
+            // Using Web Speech API for text-to-speech
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(audioText);
+                utterance.rate = 0.9;
+                speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio description: " + audioText);
+            }
+        }
+        
+        // 3D Text Effect on hover
+        const reflectedTexts = document.querySelectorAll('.reflected-text');
+        reflectedTexts.forEach(text => {
+            text.addEventListener('mousemove', (e) => {
+                const rect = text.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleX = (y - centerY) / 20;
+                const angleY = (centerX - x) / 20;
+                
+                text.style.transform =`perspective(500px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+                text.style.textShadow = `${-angleY * 2}px ${angleX * 2}px 5px rgba(241, 196, 15, 0.5)`;
+            });
+            
+            text.addEventListener('mouseleave', () => {
+                text.style.transform = 'perspective(500px) rotateX(0) rotateY(0)';
+                text.style.textShadow = 'none';
             });
         });
     </script>
