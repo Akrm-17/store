@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - CarShow X</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Navbar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f1c40f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: #ffffff;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #f1c40f;
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 150px 10% 100px;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            color: #f1c40f;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #f1c40f;
+        }
+        
+        .services-intro {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(241, 196, 15, 0.2);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: #f1c40f;
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: #f1c40f;
+            margin-bottom: 20px;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: rotateY(180deg);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 20px;
+        }
+        
+        .service-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f1c40f;
+            color: #121212;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .service-btn:hover {
+            background-color: #ffffff;
+            transform: translateY(-3px);
+        }
+        
+        /* Image Zoom Effect */
+        .service-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        /* Warranty Banner */
+        .warranty-banner {
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 50px;
+            text-align: center;
+            color: #121212;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .warranty-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .warranty-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .warranty-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png');
+            opacity: 0.1;
+            transform: rotate(30deg);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #000000;
+            padding: 30px 5%;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .social-icons a {
+            color: #ffffff;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #f1c40f;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #777777;
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.6s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.9s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .services-intro {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">CarShow <span>X</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="featured.html">feather</a></li>
+                <li><a href="specs.html">Specs & Prices</a></li>  
+                <li><a href="services.html">Services</a></li>     
+                <li><a href="reviews.html">Customer Reviews</a></li> 
+                <li><a href="contact.html">Contact</a></li>
+
+              </ul>
+        </nav>
+        
+        
+        <section class="services-section">
+            <h1 class="section-title fade-in">Our <span style="color: #ffffff;">Services</span></h1>
+            
+            <p class="services-intro fade-in delay-1">At CarShow X, we go beyond just selling cars. Our comprehensive range of services ensures your vehicle remains in perfect condition throughout your ownership experience.</p>
+            
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Warranty Service">
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>5-Year Warranty</h3>
+                    <p>Comprehensive coverage for your peace of mind. Our warranty covers all major components with no hidden fees.</p>
+                    <a href="#" class="service-btn">Learn More</a>
+                </div>
+                
+                <div class="service-card fade-in delay-1">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Maintenance Service">
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Free Maintenance</h3>
+                    <p>First year of scheduled maintenance included with every new vehicle purchase at no additional cost.</p>
+                    <a href="#" class="service-btn">Schedule Service</a>
+                </div>
+                
+                <div class="service-card fade-in delay-2">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Support Service">
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our expert technicians are available around the clock to assist with any questions or emergencies.</p>
+                    <a href="#" class="service-btn">Contact Support</a>
+                </div>
+            </div>
+            
+            <div class="warranty-banner fade-in delay-3">
+                <h2>Extended Warranty Available</h2>
+                <p>Upgrade to our Platinum Coverage for up to 7 years of protection with roadside assistance and rental car benefits.</p>
+                <button class="service-btn" style="background-color: #121212; color: #ffffff;">Get a Quote</button>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="copyright">© 2023 CarShow X. All Rights Reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation trigger on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.style.animationPlayState = 'running';
+                    }
+                });
+            };
+            
+            // Set initial state
+            fadeElements.forEach(element => {
+                element.style.animationPlayState = 'paused';
+            });
+            
+            // Check on load
+            fadeInOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 50) {
+                    nav.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                } else {
+                    nav.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                }
+            });
+            
+            // Add zoom effect to service images
+            const serviceImages = document.querySelectorAll('.service-image');
+            serviceImages.forEach(image => {
+                image.addEventListener('click', function() {
+                    const imgSrc = this.querySelector('img').src;
+                    const modal = document.createElement('div');
+                    modal.style.position = 'fixed';
+                    modal.style.top = '0';
+                    modal.style.left = '0';
+                    modal.style.width = '100%';
+                    modal.style.height = '100%';
+                    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                    modal.style.display = 'flex';
+                    modal.style.justifyContent = 'center';
+                    modal.style.alignItems = 'center';
+                    modal.style.zIndex = '1000';
+                    modal.style.cursor = 'zoom-out';
+                    
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.style.maxWidth = '90%';
+                    img.style.maxHeight = '90%';
+                    img.style.objectFit = 'contain';
+                    
+                    modal.appendChild(img);
+                    document.body.appendChild(modal);
+                    
+                    modal.addEventListener('click', function() {
+                        document.body.removeChild(modal);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

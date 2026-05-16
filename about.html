@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - CarShow X</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Navbar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f1c40f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: #ffffff;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #f1c40f;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 150px 10% 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            color: #f1c40f;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #f1c40f;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 80px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 20px;
+        }
+        
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #f1c40f;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #cccccc;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+        
+        .about-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Mission/Vision Section */
+        .mv-section {
+            width: 100%;
+            padding: 50px 0;
+            background-color: #1a1a1a;
+        }
+        
+        .mv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        .mv-box {
+            width: 300px;
+            margin: 20px;
+            padding: 30px;
+            text-align: center;
+            background-color: #252525;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mv-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(241, 196, 15, 0.2);
+        }
+        
+        .mv-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: #f1c40f;
+        }
+        
+        .mv-icon {
+            font-size: 3rem;
+            color: #f1c40f;
+            margin-bottom: 20px;
+            transition: transform 0.5s;
+        }
+        
+        .mv-box:hover .mv-icon {
+            transform: rotateY(180deg);
+        }
+        
+        .mv-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .mv-box p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 100px 10%;
+            text-align: center;
+        }
+        
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .team-member {
+            width: 250px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .team-member:hover .member-info {
+            opacity: 1;
+        }
+        
+        .member-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #f1c40f;
+        }
+        
+        .member-info p {
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #000000;
+            padding: 30px 5%;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .social-icons a {
+            color: #ffffff;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #f1c40f;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #777777;
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.6s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.9s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-text h2 {
+                font-size: 1.5rem;
+            }
+            
+            .about-text p {
+                font-size: 1rem;
+            }
+            
+            .mv-box {
+                width: 100%;
+                margin: 20px 0;
+            }
+            
+            .team-member {
+                width: 200px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">CarShow <span>X</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="featured.html">feather</a></li>
+                <li><a href="specs.html">Specs & Prices</a></li>  
+                <li><a href="services.html">Services</a></li>     
+                <li><a href="reviews.html">Customer Reviews</a></li> 
+                <li><a href="contact.html">Contact</a></li>
+
+              </ul>
+        </nav>
+        
+        
+        <section class="about-section">
+            <h1 class="section-title fade-in">About CarShow X</h1>
+            
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h2>Our Story</h2>
+                    <p>Founded in 2010, CarShow X has grown from a small local dealership to one of the most prestigious car exhibition platforms in the region. Our journey began with a simple passion for automobiles and a vision to create a space where car enthusiasts could experience the finest vehicles in the world.</p>
+                    <p>Over the years, we've curated an exceptional collection of luxury, sports, and classic cars, each with its own unique story. Our team of experts meticulously selects every vehicle in our showroom, ensuring only the highest quality and performance standards.</p>
+                    <p>What sets us apart is our commitment to creating an immersive experience. We don't just sell cars; we create memories and fulfill automotive dreams.</p>
+                </div>
+                
+                <div class="about-image fade-in delay-1">
+                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="CarShow X Showroom">
+                </div>
+            </div>
+        </section>
+        
+        <section class="mv-section">
+            <div class="mv-container">
+                <div class="mv-box fade-in">
+                    <div class="mv-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To revolutionize the car buying experience by combining cutting-edge technology with personalized service, creating a seamless journey from discovery to ownership.</p>
+                </div>
+                
+                <div class="mv-box fade-in delay-1">
+                    <div class="mv-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To connect automotive enthusiasts with their dream vehicles through an unparalleled exhibition experience, backed by expert knowledge and exceptional service.</p>
+                </div>
+                
+                <div class="mv-box fade-in delay-2">
+                    <div class="mv-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Our Values</h3>
+                    <p>Integrity, passion, innovation, and customer satisfaction drive everything we do. We believe in building lasting relationships, not just making sales.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="team-section">
+            <h1 class="section-title fade-in">Meet Our Team</h1>
+            <p class="fade-in delay-1" style="max-width: 800px; margin: 0 auto 50px; color: #cccccc;">Our dedicated team of automotive experts brings decades of combined experience to help you find your perfect vehicle.</p>
+            
+            <div class="team-members">
+                <div class="team-member fade-in">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3>John Smith</h3>
+                        <p>Founder & CEO</p>
+                    </div>
+                </div>
+                
+                <div class="team-member fade-in delay-1">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3>Sarah Johnson</h3>
+                        <p>Sales Director</p>
+                    </div>
+                </div>
+                
+                <div class="team-member fade-in delay-2">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1542190891-2093d38760f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3>Michael Brown</h3>
+                        <p>Head of Operations</p>
+                    </div>
+                </div>
+                
+                <div class="team-member fade-in delay-3">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h3>Emily Davis</h3>
+                        <p>Customer Relations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="copyright">© 2023 CarShow X. All Rights Reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation trigger on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    if (elementTop < windowHeight - 100) {
+                        element.style.animationPlayState = 'running';
+                    }
+                });
+            };
+            
+            // Set initial state
+            fadeElements.forEach(element => {
+                element.style.animationPlayState = 'paused';
+            });
+            
+            // Check on load
+            fadeInOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 50) {
+                    nav.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                } else {
+                    nav.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

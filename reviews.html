@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - CarShow X</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f1c40f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: #ffffff;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #f1c40f;
+        }
+        
+        /* Reviews Section */
+        .reviews-section {
+            padding: 150px 10% 100px;
+            background: url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .reviews-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            color: #f1c40f;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #f1c40f;
+        }
+        
+        .reviews-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Review Cards */
+        .review-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.1);
+            border-left: 4px solid #f1c40f;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(241, 196, 15, 0.2);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .review-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            border: 2px solid #f1c40f;
+        }
+        
+        .review-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .review-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .review-stars {
+            color: #f1c40f;
+            font-size: 1rem;
+        }
+        
+        .review-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding: 15px 0;
+            position: relative;
+        }
+        
+        .review-text::before {
+            content: """;
+            font-size: 60px;
+            color: rgba(241, 196, 15, 0.1);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+        }
+        
+        .review-date {
+            font-size: 0.9rem;
+            color: #777;
+            text-align: right;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #000000;
+            padding: 30px 5%;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .social-icons a {
+            color: #ffffff;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #f1c40f;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #777777;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.6s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .review-card {
+                padding: 20px;
+            }
+            
+            .review-avatar {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">CarShow <span>X</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="featured.html">feather</a></li>
+                <li><a href="specs.html">Specs & Prices</a></li>  
+                <li><a href="services.html">Services</a></li>     
+                <li><a href="reviews.html">Customer Reviews</a></li> 
+                <li><a href="contact.html">Contact</a></li>
+
+              </ul>
+        </nav>
+        
+        
+        <section class="reviews-section">
+            <h1 class="section-title">Customer <span style="color: #ffffff;">Reviews</span></h1>
+            
+            <div class="reviews-container">
+                <div class="review-card fade-in">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah">
+                        </div>
+                        <div class="review-info">
+                            <h4>Sarah Johnson</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span style="margin-left: 10px; font-size: 0.9rem;">4.5/5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        Amazing experience! The team was professional and helped me find the perfect family SUV. The pricing was transparent and the service was quick.
+                    </div>
+                    <div class="review-date">
+                        June 15, 2023
+                    </div>
+                </div>
+                
+                <div class="review-card fade-in delay-1">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael">
+                        </div>
+                        <div class="review-info">
+                            <h4>Michael Brown</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span style="margin-left: 10px; font-size: 0.9rem;">5/5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        Best car dealership I've worked with. Their knowledge about luxury cars is impressive. My new BMW M4 is everything I dreamed of!
+                    </div>
+                    <div class="review-date">
+                        May 2, 2023
+                    </div>
+                </div>
+                
+                <div class="review-card fade-in delay-2">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Emily">
+                        </div>
+                        <div class="review-info">
+                            <h4>Emily Davis</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span style="margin-left: 10px; font-size: 0.9rem;">4/5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        Great selection of economic cars. The staff was helpful, though I wish they had more financing options. Overall very satisfied with my Toyota purchase.
+                    </div>
+                    <div class="review-date">
+                        April 22, 2023
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="copyright">© 2023 CarShow X. All Rights Reserved</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Typewriter Effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviewTexts = document.querySelectorAll('.review-text');
+            
+            reviewTexts.forEach(text => {
+                const originalText = text.innerText;
+                text.innerHTML = '';
+                
+                let i = 0;
+                const typing = setInterval(() => {
+                    text.innerHTML += originalText[i];
+                    i++;
+                    if (i >= originalText.length) clearInterval(typing);
+                }, 30);
+            });
+            
+            // Star Animation
+            const stars = document.querySelectorAll('.review-stars i');
+            stars.forEach((star, index) => {
+                star.style.animation = `starGlow 1s ${index * 0.2}s forwards;
+            });
+            
+            // Add star glow animation to CSS
+            const style = document.createElement('style');
+            style.innerHTML = 
+                @keyframes starGlow {
+                    0% { transform: scale(1); opacity: 0.3; }
+                    50% { transform: scale(1.3); opacity: 1; }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+          `  ;
+            document.head.appendChild(style);
+            
+            // Click Effect
+            const cards = document.querySelectorAll('.review-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                    }, 200);
+                    
+                    // Play click sound
+                    const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
+                    clickSound.volume = 0.3;
+                    clickSound.play();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
